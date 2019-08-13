@@ -27,7 +27,7 @@ const  AuthValidation = {
             return ErrorHandler.errorResponse(res, 400,result.error.details[0].message);
         } 
         const db = await connect();
-        let userExists = db.collection('users').findOne({'email':email})
+        let userExists = await db.collection('users').findOne({'email':email})
         if (userExists){
             return ErrorHandler.errorResponse(res, 409, 'This user is already registered. Try logging in instead');
         }
