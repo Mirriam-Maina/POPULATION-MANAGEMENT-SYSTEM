@@ -2,18 +2,22 @@ import passwordHash from 'password-hash';
 import connection from '../database/config';
 class User{
     
-    constructor(firstName, lastName, email, password, address){
+    constructor(firstName, lastName, email, password, gender, county, constituency, ward){
         this.firstName = firstName
         this.lastName = lastName
         this.email = email
         this.password = password
-        this.address = address
+        this.gender = gender
+        this.county = county
+        this.constituency = constituency
+        this.ward = ward
     }
 
     async addUser(){
             const hashedPassword =  this.hashPassword(this.password);
             const db = await connection();
-            const addUser = await db.collection('users').insertOne({firstName: this.firstName, lastName: this.lastName, email: this.email, password: hashedPassword, address: this.address});
+            const addUser = await db.collection('users').insertOne({firstName: this.firstName, lastName: this.lastName, email: this.email, 
+                            password: hashedPassword, gender: this.gender, county: this.county, constituency: this.constituency, ward: this.ward });
             const insertedUser = await db.collection('users').findOne({'_id': addUser.insertedId})
             return insertedUser;
     }
@@ -38,7 +42,6 @@ class User{
         else {
             return false
         }
-
     }
 }
 
