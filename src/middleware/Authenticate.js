@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import connect from '../database/config';
 import ErrorHandler from '../helpers/errorHandler';
 
 require('dotenv').config();
@@ -12,15 +13,16 @@ const Authenticate =  {
       return token;
     },
 
-decodeToken: (req, res, token, next) => {
+decodeToken: async(req, res, token, next) => {
+      const db  = await connect();
       jwt.verify(token, process.env.APP_SECRET, async (error, decoded)=>{
         if(error){
           return ErrorHandler.errorResponse(res, 400, error.message);
         }
         else{
           const user = decoded.data.email;
-          const userExists = db.collection('users').findOne({'email':email});
-          if(userExists) {
+          const userExists = await db.collection('users').findOne({'email':user});
+          if(!userExists) {
              return ErrorHandler.errorResponse(res, 400, 'This token is no longer valid') }
           else {
             req.user = user;
