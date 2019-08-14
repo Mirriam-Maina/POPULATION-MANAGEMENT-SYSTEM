@@ -18,7 +18,7 @@ export default class Location{
 
     static async getAll(){
         const db = await connect();
-        const getAllLocations = await db.collection('users').find();
+        const getAllLocations = await db.collection('locations').find().toArray();
         return getAllLocations;
     }
 }
