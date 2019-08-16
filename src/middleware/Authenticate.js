@@ -7,7 +7,7 @@ require('dotenv').config();
 const Authenticate =  {
  signToken: (payload) => {
       let token = jwt.sign({
-          exp: Math.floor(Date.now() / 1000) + (60 * 60),
+          exp: Math.floor(Date.now() / 1000) + (60 * 60*60*60),
           data: payload
         }, process.env.APP_SECRET);
       return token;
