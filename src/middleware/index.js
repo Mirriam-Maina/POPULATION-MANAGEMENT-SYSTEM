@@ -1,11 +1,13 @@
-import Authenticate from './Authenticate';
-import AuthValidation from './AuthValidation';
-import LocationValidation from './Location';
+import Authenticate from './authenticate';
+import AuthValidation from './authValidation';
+import LocationValidation from './location';
+import PopulationValidation from './population';
 
 const middleware = {
     Authenticate,
     AuthValidation,
-    LocationValidation
+    LocationValidation,
+    PopulationValidation
 };
 
 export default middleware;

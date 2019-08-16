@@ -1,6 +1,7 @@
+require('dotenv').config();
 const MongoClient = require('mongodb').MongoClient;
 
-let url = "mongodb://localhost:27017/PopulationManagementSystem";
+let url = process.env.DB_URL;
 const client = new MongoClient(url, { useNewUrlParser: true });
 
 // Connect to the db

@@ -1,5 +1,6 @@
 import connect from '../database/config';
 import strip from '../helpers/general';
+const ObjectID = require("mongodb").ObjectID;
 
 export default class Location{
 
@@ -20,5 +21,11 @@ export default class Location{
         const db = await connect();
         const getAllLocations = await db.collection('locations').find().toArray();
         return getAllLocations;
+    }
+
+    static async getPopulation(id){
+        const db = await connect();
+        const getLocationPopulation = await db.collection('locations').findOne({'_id':ObjectID(id)})
+        return getLocationPopulation.population;
     }
 }
