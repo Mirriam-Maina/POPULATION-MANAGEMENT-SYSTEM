@@ -26,8 +26,14 @@ const LocationController = {
             : ErrorHandler.errorResponse(res, 404, "Could not find population record for that date") 
          }
          return ErrorHandler.successResponse(res, 200, "Successfully retrieved population", getLocationPopulation);
-    }
+    },
 
+    deleteLocation: async(req, res) => {
+        const { id } = req.params;
+        const deletedLocation = await Location.deleteLocation(id)
+        deletedLocation.result.n === 1 ? ErrorHandler.successResponse(res, 200, 'Location record deleted successfully')
+        : ErrorHandler.errorResponse(res, 400, "That location record does not exist");
+    }
 }
 
 export default LocationController;

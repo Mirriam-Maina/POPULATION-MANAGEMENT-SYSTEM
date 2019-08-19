@@ -4,7 +4,7 @@ import LocationController from './LocationController';
 
 const LocationControllerRouter = express.Router();
 const { Authenticate, LocationValidation } = middleware;
-const { createLocation, getAllLocations, viewLocationPopulation } = LocationController;
+const { createLocation, getAllLocations, viewLocationPopulation , deleteLocation} = LocationController;
 
 
 LocationControllerRouter.post(
@@ -27,5 +27,11 @@ LocationControllerRouter.get(
     viewLocationPopulation
 )
 
+LocationControllerRouter.delete(
+    '/location/:id',
+        LocationValidation.checkIfExists,
+        Authenticate.checkToken,
+        deleteLocation
+)
 
 export default LocationControllerRouter;
