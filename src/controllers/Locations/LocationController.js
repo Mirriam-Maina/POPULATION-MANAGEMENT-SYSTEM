@@ -18,7 +18,7 @@ const LocationController = {
     viewLocationPopulation: async(req, res) => {
          const { id } = req.params;
          const getLocationPopulation = await Location.getPopulation(id)
-         if (req.params.date !== 'null'){
+         if (req.query.date !== undefined ){
              let dateFiltered = [];
             getLocationPopulation.forEach(population => population.date === req.query.date ? dateFiltered.push(population)
                 : null);
