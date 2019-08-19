@@ -12,7 +12,8 @@ const LocationController = {
 
     getAllLocations: async(req,res) => {
         const allLocations = await Location.getAll();
-        return ErrorHandler.successResponse(res, 200, "successfully retrieved locations", allLocations);
+        allLocations.length == 0 ? ErrorHandler.errorResponse(res, 404, 'There are no location records at the moment') 
+        : ErrorHandler.successResponse(res, 200, "successfully retrieved locations", allLocations);
     },
 
     viewLocationPopulation: async(req, res) => {
@@ -26,8 +27,14 @@ const LocationController = {
             : ErrorHandler.errorResponse(res, 404, "Could not find population record for that date") 
          }
          return ErrorHandler.successResponse(res, 200, "Successfully retrieved population", getLocationPopulation);
-    }
+    },
 
+    deleteLocation: async(req, res) => {
+        const { id } = req.params;
+        const deletedLocation = await Location.deleteLocation(id)
+        deletedLocation.result.n === 1 ? ErrorHandler.successResponse(res, 200, 'Location record deleted successfully')
+        : ErrorHandler.errorResponse(res, 400, "That location record does not exist");
+    }
 }
 
 export default LocationController;
