@@ -21,13 +21,12 @@ const PopulationValidation = {
 
     checkDuplicate: async(req, res, next) => {
         const db = await connect();
-        const { date } = req.body;
-        const populationExists = await db.collection('population').findOne({'date': date });
-        if(populationExists){
+        const { date } = req.body
+        const populationExists = await db.collection('locations').findOne({"population.date": date});
+        if(populationExists != null ){
             ErrorHandler.errorResponse(res, 400, 'Population as of that date already exists')
         }
         next();
     }
 }
-
 export default PopulationValidation;

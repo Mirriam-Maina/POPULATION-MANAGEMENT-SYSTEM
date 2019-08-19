@@ -3,6 +3,9 @@ import strip from '../helpers/general';
 import connect from '../database/config';
 import ErrorHandler from '../helpers/errorHandler';
 
+
+const ObjectID = require("mongodb").ObjectID;
+
 const LocationSchema  = Joi.object().keys({
     county: Joi.string().min(3).max(30).required(),
     constituency: Joi.string().min(3).max(30).required(),
@@ -26,6 +29,12 @@ const LocationValidation  = {
             return ErrorHandler.errorResponse(res, 409, 'this location already exists' )
         }
         next();
+    }, 
+
+    checkIfExists: async(req, res, next) => {
+        const db = await connect();
+        const { id } = req.params;
+        ObjectID.isValid(id) ? next() : ErrorHandler.errorResponse(res, 404, "That location does  not exist");
     }
 }
 

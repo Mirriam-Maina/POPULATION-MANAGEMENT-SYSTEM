@@ -12,8 +12,13 @@ class Population {
 
     async createPopulation(){
         const db = await connect();
-        const createPopulation = await db.collection('population').insertOne({date: this.date, female: this.female, male: this.male})
-        const createdPopulation = await db.collection('population').findOne({'_id': createPopulation.insertedId})
+        const timestamp = new Date().getTime();
+        const createdPopulation = {
+            id: timestamp,
+            female: this.female,
+            male: this.male,
+            date: this.date
+        }
         const addPopulationToLocation = await db.collection('locations').updateOne({'_id':ObjectID(this.id)},{$push: {'population': createdPopulation}})
         const location = await db.collection('locations').findOne({'_id': ObjectID(this.id)})
         return location

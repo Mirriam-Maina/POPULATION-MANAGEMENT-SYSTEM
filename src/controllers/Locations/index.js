@@ -4,7 +4,7 @@ import LocationController from './LocationController';
 
 const LocationControllerRouter = express.Router();
 const { Authenticate, LocationValidation } = middleware;
-const { createLocation, getAllLocations } = LocationController;
+const { createLocation, getAllLocations, viewLocationPopulation } = LocationController;
 
 
 LocationControllerRouter.post(
@@ -18,6 +18,13 @@ LocationControllerRouter.get(
     '/locations',
     Authenticate.checkToken,
     getAllLocations
+)
+
+LocationControllerRouter.get(
+    '/locations/:id/population',
+    LocationValidation.checkIfExists,
+    Authenticate.checkToken,
+    viewLocationPopulation
 )
 
 
