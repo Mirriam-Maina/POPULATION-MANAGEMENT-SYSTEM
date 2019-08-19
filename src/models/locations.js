@@ -28,4 +28,11 @@ export default class Location{
         const getLocationPopulation = await db.collection('locations').findOne({'_id':ObjectID(id)})
         return getLocationPopulation.population;
     }
+
+    static async deleteLocation(id){
+        const db = await connect();
+        const deleteLocationRecord = await db.collection('locations').deleteOne({'_id':ObjectID(id)});
+        return deleteLocationRecord
+    }
+
 }
