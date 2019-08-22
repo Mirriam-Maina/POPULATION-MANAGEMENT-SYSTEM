@@ -12,7 +12,8 @@ const LocationController = {
 
     getAllLocations: async(req,res) => {
         const allLocations = await Location.getAll();
-        return ErrorHandler.successResponse(res, 200, "successfully retrieved locations", allLocations);
+        allLocations.length == 0 ? ErrorHandler.errorResponse(res, 404, 'There are no location records at the moment') 
+        : ErrorHandler.successResponse(res, 200, "successfully retrieved locations", allLocations);
     },
 
     viewLocationPopulation: async(req, res) => {
