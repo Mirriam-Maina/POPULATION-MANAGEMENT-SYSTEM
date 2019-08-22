@@ -13,4 +13,11 @@ PopulationControllerRouter.post(
     PopulationController.createPopulation
 )
 
+PopulationControllerRouter.delete(
+    '/locations/:id/population/:populationId',
+    Authenticate.checkToken,
+    LocationValidation.checkIfExists,
+    PopulationController.deletePopulation
+)
+
 export default PopulationControllerRouter;
