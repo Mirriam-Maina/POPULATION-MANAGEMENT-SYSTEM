@@ -14,7 +14,6 @@ const Authenticate =  {
     },
 
 decodeToken: async(req, res, token, next) => {
-      const db  = await connect();
       jwt.verify(token, process.env.APP_SECRET, async (error, decoded)=>{
         if(error){
           return ErrorHandler.errorResponse(res, 400, error.message);

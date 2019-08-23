@@ -1,6 +1,5 @@
 import Joi from 'joi';
 import strip from '../helpers/general';
-import connect from '../database/config';
 import ErrorHandler from '../helpers/errorHandler';
 
 
@@ -20,7 +19,6 @@ const LocationValidation  = {
     },
 
     checkDuplicate: async(body, res, next) => {
-        const db = await connect();
         const { county, constituency, ward } = body;
         const findLocation = await db.collection('locations').findOne({
             'county': strip(county), 'constituency':strip(constituency), 'ward':strip(ward)
@@ -32,7 +30,6 @@ const LocationValidation  = {
     }, 
 
     checkIfExists: async(req, res, next) => {
-        const db = await connect();
         const { id } = req.params;
         ObjectID.isValid(id) ? next() : ErrorHandler.errorResponse(res, 404, "That location does  not exist");
     }

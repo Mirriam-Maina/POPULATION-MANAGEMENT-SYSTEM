@@ -20,4 +20,13 @@ PopulationControllerRouter.delete(
     PopulationController.deletePopulation
 )
 
+
+PopulationControllerRouter.patch(
+    '/locations/:id/population/:populationId',
+    Authenticate.checkToken,
+    LocationValidation.checkIfExists,
+    PopulationController.updatePopulation
+
+)
+
 export default PopulationControllerRouter;

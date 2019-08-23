@@ -1,5 +1,4 @@
 import passwordHash from 'password-hash';
-import connection from '../database/config';
 class User{
     
     constructor(firstName, lastName, email, password, gender, county, constituency, ward){
@@ -15,7 +14,6 @@ class User{
 
     async addUser(){
             const hashedPassword =  this.hashPassword(this.password);
-            const db = await connection();
             const addUser = await db.collection('users').insertOne({firstName: this.firstName, lastName: this.lastName, email: this.email, 
                             password: hashedPassword, gender: this.gender, county: this.county, constituency: this.constituency, ward: this.ward });
             const insertedUser = await db.collection('users').findOne({'_id': addUser.insertedId})
@@ -27,7 +25,6 @@ class User{
     }
 
     static async signInUser(email, password){
-        const db = await connection();
         const availableUser = await db.collection('users').findOne({'email':email});
         if(availableUser){
             const storedPassword = availableUser.password;
