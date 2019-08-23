@@ -15,6 +15,12 @@ const LocationController = {
         return ErrorHandler.successResponse(res, 200, "successfully retrieved locations", allLocations);
     },
 
+    getSingleLocation: async(req, res)=>{
+        const locationId = req.params.id;
+        const singleLocation = await Location.getSingleLocation(locationId)
+        return ErrorHandler.successResponse(res, 200, "successfully retrieved location", singleLocation)
+    },
+
     viewLocationPopulation: async(req, res) => {
          const { id } = req.params;
          const getLocationPopulation = await Location.getPopulation(id)

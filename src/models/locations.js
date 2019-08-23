@@ -23,6 +23,12 @@ export default class Location{
         return getAllLocations;
     }
 
+    static async getSingleLocation(locationId){
+        const db = await connect();
+        const getOneLocation = await db.collection('locations').findOne({'_id':ObjectID(locationId)})
+        return getOneLocation;
+    }
+
     static async getPopulation(id){
         const db = await connect();
         const getLocationPopulation = await db.collection('locations').findOne({'_id':ObjectID(id)})
