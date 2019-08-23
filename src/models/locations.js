@@ -41,4 +41,11 @@ export default class Location{
         return deleteLocationRecord
     }
 
+    static async updateLocation(id, body){
+        const db = await connect();
+        const updatedLocation = await db.collection('locations').updateOne({'_id':ObjectID(id)}, {$set: {'county':body.county, 'constituency':body.constituency, ward: body.ward}})
+        const newLocation = await db.collection('locations').findOne({'_id':ObjectID(id)});
+        return newLocation;
+    }
+
 }
