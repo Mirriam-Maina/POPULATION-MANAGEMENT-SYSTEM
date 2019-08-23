@@ -40,7 +40,15 @@ const LocationController = {
         const deletedLocation = await Location.deleteLocation(id)
         deletedLocation.result.n === 1 ? ErrorHandler.successResponse(res, 200, 'Location record deleted successfully')
         : ErrorHandler.errorResponse(res, 400, "That location record does not exist");
+    },
+
+    updateLocation: async(req, res) => {
+        const { id } = req.params;
+        const data = req.body;
+        const updatedLocation = await Location.updateLocation(id, data)
+        ErrorHandler.successResponse(res, 200, "successfully updated location", updatedLocation)
     }
+
 }
 
 export default LocationController;
