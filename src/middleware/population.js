@@ -1,5 +1,4 @@
 import Joi from 'joi';
-import connect from '../database/config';
 import ErrorHandler from '../helpers/errorHandler';
 
 
@@ -20,7 +19,6 @@ const PopulationValidation = {
     },
 
     checkDuplicate: async(req, res, next) => {
-        const db = await connect();
         const { date } = req.body
         const populationExists = await db.collection('locations').findOne({"population.date": date});
         if(populationExists != null ){

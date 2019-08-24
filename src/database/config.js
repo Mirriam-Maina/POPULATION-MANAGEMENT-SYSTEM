@@ -8,8 +8,7 @@ const client = new MongoClient(url, { useNewUrlParser: true });
 let connection;
 const connect = async() => {
  connection = await client.connect();
- const db = connection.db('PopulationManagementSystem')
- return db;
+ global.db = connection.db('PopulationManagementSystem');
 };
 
 connect();

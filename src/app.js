@@ -13,6 +13,7 @@ app.use(
 app.use(bodyParser.json());
 
 // app.use('*', (req, res) => res.status(404).json({
+//     statue: 404,
 //     message: 'Not Found. Use /api/v1 to access the Api'
 //   }));
 

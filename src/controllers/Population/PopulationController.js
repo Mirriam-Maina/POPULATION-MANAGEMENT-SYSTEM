@@ -17,6 +17,12 @@ const PopulationController = {
         const deletedPopulation = await Population.deletePopulation(id, populationId);
         deletedPopulation.result.nModified == 1 ? ErrorHandler.successResponse(res, 200, 'Population deleted successfully')
         : ErrorHandler.errorResponse(res, 404, 'An entry with that ID was not found')
+    },
+
+    updatePopulation: async(req, res) => {
+        const { id, populationId} = req.params;
+        const updatedPopulation = await Population.updatePopulation(id, Number(populationId), req.body);
+        return ErrorHandler.successResponse(res, 200, 'population updated successfully', updatedPopulation);
     }
 }
 
