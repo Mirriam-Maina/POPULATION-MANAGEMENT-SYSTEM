@@ -25,8 +25,7 @@ const  AuthValidation = {
         const result = Joi.validate({ firstName , lastName, email, address, password }, SignupSchema);
         if(result.error){
             return ErrorHandler.errorResponse(res, 400,result.error.details[0].message);
-        } 
-        const db = await connect();
+        }
         let userExists = await db.collection('users').findOne({'email':email})
         if (userExists){
             return ErrorHandler.errorResponse(res, 409, 'This user is already registered. Try logging in instead');
